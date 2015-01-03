@@ -1,0 +1,78 @@
+Users or Admin can create tasks
+Tasks default to base_points = 1
+Users may upvote tasks, which adds 1 point
+Users may spend credits on tasks, which adds 1 point per credit
+Full points are awarded to anyone completing a task (points are not split)
+Credits are awarded to anyone completing a task, at a rate of 0.2 credits per point
+Users may flag completions as false and provide a reason, Admins will investigate and determine if flag is valid
+Main scoreboard will be last x days
+Tasks can have many Tags, assigned by any User
+Tags are User-created
+
+Task
+    id
+    created
+    status              0 = Todo, 1 = Completed (points awarded), 2 = Closed (no points awarded)
+    user_id             User who created the Task
+    name
+    description
+    base_points         Admin assigned points, default = 1
+    gift_points         User gifted points (see Gift model)
+    votes_count         countercache of votes
+    completions_count   coutnercache of completions
+    points              Virtual field, points = base_points + gift_points + votes_count
+
+task_tags
+    id
+    task_id
+    tag_id
+
+Tag
+    id
+    name
+    task_count          countercache of tasks
+
+Commment
+    id
+    created
+    task_id
+    user_id
+    text
+
+Vote
+    id
+    created
+    task_id
+    user_id
+
+Completion
+    id
+    created
+    task_id
+    user_id
+
+Gift
+    id
+    created
+    task_id
+    user_id
+    credits             Credits subtracted from User
+    points              Points added to Task
+
+User
+    id
+    username
+    password
+    email
+    credits (decimal)   Spendable points (credited to account at awarded_points*0.2)
+    lifetime_points     All points ever accumulated
+    votes_count         Votes cast
+
+Flag
+    id
+    created
+    modified
+    status              0 = Open, 1 = Valid Flag (points removed), 2 = Invalid Flag (closed without action)
+    completion_id       Completion that might be invalid
+    user_id             User submitting complaint
+    description
