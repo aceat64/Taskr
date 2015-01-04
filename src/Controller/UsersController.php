@@ -69,8 +69,9 @@ class UsersController extends AppController
             } else {
                 $user = $this->Users->patchEntity($user, $this->request->data);
                 if ($this->Users->save($user)) {
-                    $this->Flash->success('Your account has been create.');
-                    return $this->redirect(['action' => 'index']);
+                    $this->Auth->setUser($user->toArray());
+                    $this->Flash->success('Your account has been created.');
+                    return $this->redirect(['controller' => 'Tasks', 'action' => 'index']);
                 } else {
                     $this->Flash->error('Your account could not be created. Please, try again.');
                 }
@@ -107,9 +108,6 @@ class UsersController extends AppController
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if ($this->request->data['id'] != $this->Auth->user('id')) {
-                throw new BadRequestException('Invalid user ID');
-            }
             if ($this->request->data['password'] != $this->request->data['confirm_password']) {
                 $this->Flash->error('Your passwords did not match. Please, try again.');
                 unset($this->request->data['password']);
@@ -119,6 +117,7 @@ class UsersController extends AppController
                 }
 
                 // Don't let them change any of these fields
+                unset($this->request->data['id']);
                 unset($this->request->data['username']);
                 unset($this->request->data['admin']);
                 unset($this->request->data['credits']);

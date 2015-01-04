@@ -37,6 +37,7 @@ class AppController extends Controller
      */
     public function initialize()
     {
+        $this->loadComponent('Security');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
             'authorize' => 'Controller',
