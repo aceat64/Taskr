@@ -2,3 +2,4 @@ User: validate e-mail during registration
 User: validate e-mail when changed
 User: support social signin/signup
 User: use gravatars
+View: Flash message should use bootstrap style
