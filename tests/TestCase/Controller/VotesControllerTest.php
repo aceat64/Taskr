@@ -1,0 +1,79 @@
+<?php
+namespace App\Test\TestCase\Controller;
+
+use App\Controller\VotesController;
+use Cake\TestSuite\IntegrationTestCase;
+
+/**
+ * App\Controller\VotesController Test Case
+ */
+class VotesControllerTest extends IntegrationTestCase
+{
+
+    /**
+     * Fixtures
+     *
+     * @var array
+     */
+    public $fixtures = [
+        'Votes' => 'app.votes',
+        'Tasks' => 'app.tasks',
+        'Users' => 'app.users',
+        'Comments' => 'app.comments',
+        'Completions' => 'app.completions',
+        'Flags' => 'app.flags',
+        'Gifts' => 'app.gifts',
+        'Tags' => 'app.tags',
+        'TasksTags' => 'app.tasks_tags'
+    ];
+
+    /**
+     * Test index method
+     *
+     * @return void
+     */
+    public function testIndex()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test view method
+     *
+     * @return void
+     */
+    public function testView()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test add method
+     *
+     * @return void
+     */
+    public function testAdd()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test edit method
+     *
+     * @return void
+     */
+    public function testEdit()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test delete method
+     *
+     * @return void
+     */
+    public function testDelete()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+}
