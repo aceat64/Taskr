@@ -131,12 +131,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "fb2ec09b408527ab1d5ee753ab096608c55dca14"
+                "reference": "6221bbc6f502532bb3a6825ce420c8a327cd18d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/fb2ec09b408527ab1d5ee753ab096608c55dca14",
-                "reference": "fb2ec09b408527ab1d5ee753ab096608c55dca14",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/6221bbc6f502532bb3a6825ce420c8a327cd18d1",
+                "reference": "6221bbc6f502532bb3a6825ce420c8a327cd18d1",
                 "shasum": ""
             },
             "require": {
@@ -188,7 +188,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-01-03 15:59:03"
+            "time": "2015-01-04 07:09:32"
         },
         {
             "name": "cakephp/migrations",
@@ -877,99 +877,6 @@
             "time": "2015-01-03 07:46:58"
         },
         {
-            "name": "composer/installers",
-            "version": "v1.0.19",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/installers.git",
-                "reference": "89d77bfbee79e16653f7162c86e602cc188471db"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/89d77bfbee79e16653f7162c86e602cc188471db",
-                "reference": "89d77bfbee79e16653f7162c86e602cc188471db",
-                "shasum": ""
-            },
-            "replace": {
-                "roundcube/plugin-installer": "*",
-                "shama/baton": "*"
-            },
-            "require-dev": {
-                "composer/composer": "1.0.*@dev",
-                "phpunit/phpunit": "4.1.*"
-            },
-            "type": "composer-installer",
-            "extra": {
-                "class": "Composer\\Installers\\Installer",
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Composer\\Installers\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kyle Robinson Young",
-                    "email": "kyle@dontkry.com",
-                    "homepage": "https://github.com/shama"
-                }
-            ],
-            "description": "A multi-framework Composer library installer",
-            "homepage": "http://composer.github.com/installers/",
-            "keywords": [
-                "Craft",
-                "Dolibarr",
-                "Hurad",
-                "MODX Evo",
-                "OXID",
-                "Thelia",
-                "WolfCMS",
-                "agl",
-                "annotatecms",
-                "bitrix",
-                "cakephp",
-                "chef",
-                "codeigniter",
-                "concrete5",
-                "croogo",
-                "dokuwiki",
-                "drupal",
-                "elgg",
-                "fuelphp",
-                "grav",
-                "installer",
-                "joomla",
-                "kohana",
-                "laravel",
-                "lithium",
-                "magento",
-                "mako",
-                "mediawiki",
-                "modulework",
-                "moodle",
-                "phpbb",
-                "piwik",
-                "ppi",
-                "puppet",
-                "roundcube",
-                "shopware",
-                "silverstripe",
-                "symfony",
-                "typo3",
-                "wordpress",
-                "zend",
-                "zikula"
-            ],
-            "time": "2014-11-29 01:29:17"
-        },
-        {
             "name": "d11wtq/boris",
             "version": "v1.0.8",
             "source": {
@@ -1002,65 +909,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "time": "2014-01-17 12:21:18"
-        },
-        {
-            "name": "oyejorge/less.php",
-            "version": "v1.7.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oyejorge/less.php.git",
-                "reference": "82372b389386ae1edab55495eae4b400cca3c86c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/oyejorge/less.php/zipball/82372b389386ae1edab55495eae4b400cca3c86c",
-                "reference": "82372b389386ae1edab55495eae4b400cca3c86c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "bin": [
-                "bin/lessc"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Less": "lib/"
-                },
-                "classmap": [
-                    "lessc.inc.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Matt Agar",
-                    "homepage": "https://github.com/agar"
-                },
-                {
-                    "name": "Martin Jantošovič",
-                    "homepage": "https://github.com/Mordred"
-                },
-                {
-                    "name": "Josh Schmidt",
-                    "homepage": "https://github.com/oyejorge"
-                }
-            ],
-            "description": "PHP port of the Javascript version of LESS http://lesscss.org",
-            "homepage": "http://lessphp.gpeasy.com",
-            "keywords": [
-                "css",
-                "less",
-                "less.js",
-                "lesscss",
-                "php",
-                "stylesheet"
-            ],
-            "time": "2014-06-05 16:09:50"
         }
     ],
     "aliases": [],
