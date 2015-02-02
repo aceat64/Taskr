@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1c1ec733438246141da0010f254821bf",
+    "hash": "a1f3a5109eb58dcd86fc281fb1265324",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -131,12 +131,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "6221bbc6f502532bb3a6825ce420c8a327cd18d1"
+                "reference": "24264629aeab8c62752309d7e44b6dcc66fc701a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/6221bbc6f502532bb3a6825ce420c8a327cd18d1",
-                "reference": "6221bbc6f502532bb3a6825ce420c8a327cd18d1",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/24264629aeab8c62752309d7e44b6dcc66fc701a",
+                "reference": "24264629aeab8c62752309d7e44b6dcc66fc701a",
                 "shasum": ""
             },
             "require": {
@@ -155,6 +155,7 @@
                 "cakephp/database": "self.version",
                 "cakephp/datasource": "self.version",
                 "cakephp/event": "self.version",
+                "cakephp/i18n": "self.version",
                 "cakephp/log": "self.version",
                 "cakephp/utility": "self.version",
                 "cakephp/validation": "self.version"
@@ -170,7 +171,8 @@
                 },
                 "files": [
                     "src/Core/functions.php",
-                    "src/Collection/functions.php"
+                    "src/Collection/functions.php",
+                    "src/I18n/functions.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -188,7 +190,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-01-04 07:09:32"
+            "time": "2015-02-02 01:44:50"
         },
         {
             "name": "cakephp/migrations",
@@ -196,12 +198,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/migrations.git",
-                "reference": "80be2aa2afe54571d3b4abdebadfe40aa91bea7f"
+                "reference": "1342694bac70b515b1a23c6fb7380f765ce0630f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/migrations/zipball/80be2aa2afe54571d3b4abdebadfe40aa91bea7f",
-                "reference": "80be2aa2afe54571d3b4abdebadfe40aa91bea7f",
+                "url": "https://api.github.com/repos/cakephp/migrations/zipball/1342694bac70b515b1a23c6fb7380f765ce0630f",
+                "reference": "1342694bac70b515b1a23c6fb7380f765ce0630f",
                 "shasum": ""
             },
             "require": {
@@ -242,23 +244,24 @@
                 "cakephp",
                 "migrations"
             ],
-            "time": "2014-12-25 03:46:57"
+            "time": "2015-01-22 04:28:30"
         },
         {
             "name": "cakephp/plugin-installer",
-            "version": "0.0.1",
+            "version": "0.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/plugin-installer.git",
-                "reference": "2f1a84253e216edd4462724aaca822bdda36dfdf"
+                "reference": "439f14f774c6906a739b8f7e6dcbdf1fafd17934"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/plugin-installer/zipball/2f1a84253e216edd4462724aaca822bdda36dfdf",
-                "reference": "2f1a84253e216edd4462724aaca822bdda36dfdf",
+                "url": "https://api.github.com/repos/cakephp/plugin-installer/zipball/439f14f774c6906a739b8f7e6dcbdf1fafd17934",
+                "reference": "439f14f774c6906a739b8f7e6dcbdf1fafd17934",
                 "shasum": ""
             },
             "require-dev": {
+                "cakephp/cakephp-codesniffer": "dev-master",
                 "composer/composer": "1.0.*@dev"
             },
             "type": "composer-installer",
@@ -281,7 +284,110 @@
                 }
             ],
             "description": "A composer installer for CakePHP 3.0+ plugins.",
-            "time": "2014-08-29 19:01:27"
+            "time": "2015-01-23 14:25:46"
+        },
+        {
+            "name": "friendsofcake/bootstrap-ui",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfCake/bootstrap-ui.git",
+                "reference": "d24f114804e6de2a45cf96f36daef33b005b270a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfCake/bootstrap-ui/zipball/d24f114804e6de2a45cf96f36daef33b005b270a",
+                "reference": "d24f114804e6de2a45cf96f36daef33b005b270a",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "3.0.*-dev"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.1.*"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "BootstrapUI\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jad Bitar",
+                    "homepage": "http://jadb.io",
+                    "role": "Author"
+                },
+                {
+                    "name": "Others",
+                    "homepage": "https://github.com/friendsofcake/bootstrap-ui/graphs/contributors"
+                }
+            ],
+            "description": "Twitter Bootstrap 3 support for CakePHP 3",
+            "homepage": "http://github.com/friendsofcake/bootstrap-ui",
+            "keywords": [
+                "bootstrap",
+                "cakephp",
+                "twitter"
+            ],
+            "time": "2015-01-24 14:16:40"
+        },
+        {
+            "name": "gourmet/common-mark",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gourmet/common-mark.git",
+                "reference": "676fea739c96eba475689489d4c2f02a7eaeae80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gourmet/common-mark/zipball/676fea739c96eba475689489d4c2f02a7eaeae80",
+                "reference": "676fea739c96eba475689489d4c2f02a7eaeae80",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "3.0.*-dev",
+                "cakephp/plugin-installer": "*",
+                "league/commonmark": "~0.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.1.*"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Gourmet\\CommonMark\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jad Bitar",
+                    "homepage": "http://jadb.io",
+                    "role": "Author"
+                },
+                {
+                    "name": "Others",
+                    "homepage": "https://github.com/gourmet/common-mark/graphs/contributors"
+                }
+            ],
+            "description": "Adds CommonMark support to CakePHP 3",
+            "homepage": "https://github.com/gourmet/common-mark",
+            "keywords": [
+                "cakephp",
+                "commonmark",
+                "gourmet",
+                "markdown"
+            ],
+            "time": "2014-12-31 06:19:58"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -324,6 +430,65 @@
                 "password"
             ],
             "time": "2014-11-20 16:49:30"
+        },
+        {
+            "name": "league/commonmark",
+            "version": "0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/commonmark.git",
+                "reference": "ad1b89403026158529620e0f6096be0eae96817c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/ad1b89403026158529620e0f6096be0eae96817c",
+                "reference": "ad1b89403026158529620e0f6096be0eae96817c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.3"
+            },
+            "replace": {
+                "colinodell/commonmark-php": "*"
+            },
+            "require-dev": {
+                "erusev/parsedown": "~1.0",
+                "jgm/commonmark": "0.17",
+                "michelf/php-markdown": "~1.4",
+                "phpunit/phpunit": "~4.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\CommonMark\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Colin O'Dell",
+                    "email": "colinodell@gmail.com",
+                    "homepage": "http://www.colinodell.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Markdown parser for PHP based on the CommonMark spec",
+            "homepage": "https://github.com/thephpleague/commonmark",
+            "keywords": [
+                "commonmark",
+                "markdown",
+                "parser"
+            ],
+            "time": "2015-01-25 16:08:20"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -425,6 +590,111 @@
             "time": "2014-09-26 02:52:02"
         },
         {
+            "name": "opauth/google",
+            "version": "1.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opauth/google.git",
+                "reference": "5605bf80b47213a620cc0d2dfb0e8212a316ceba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opauth/google/zipball/5605bf80b47213a620cc0d2dfb0e8212a316ceba",
+                "reference": "5605bf80b47213a620cc0d2dfb0e8212a316ceba",
+                "shasum": ""
+            },
+            "require": {
+                "opauth/opauth": "~1.0",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Opauth\\Google\\Strategy\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "U-Zyn Chua",
+                    "email": "chua@uzyn.com",
+                    "homepage": "http://uzyn.com"
+                },
+                {
+                    "name": "Ceeram",
+                    "email": "c33ram@gmail.com"
+                }
+            ],
+            "description": "Google strategy for Opauth",
+            "homepage": "http://opauth.org",
+            "keywords": [
+                "Authentication",
+                "auth",
+                "google"
+            ],
+            "time": "2014-04-07 16:49:05"
+        },
+        {
+            "name": "opauth/opauth",
+            "version": "1.0.0-alpha.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opauth/opauth.git",
+                "reference": "a68ecdf4914eae8c160542eca154d4ba40f0a700"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opauth/opauth/zipball/a68ecdf4914eae8c160542eca154d4ba40f0a700",
+                "reference": "a68ecdf4914eae8c160542eca154d4ba40f0a700",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "opauth/facebook": "Allows Facebook authentication",
+                "opauth/google": "Allows Google authentication",
+                "opauth/twitter": "Allows Twitter authentication"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Opauth\\Opauth\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "U-Zyn Chua",
+                    "email": "chua@uzyn.com",
+                    "homepage": "http://uzyn.com"
+                },
+                {
+                    "name": "Ceeram",
+                    "email": "c33ram@gmail.com"
+                }
+            ],
+            "description": "Multi-provider authentication framework for PHP",
+            "homepage": "http://opauth.org",
+            "keywords": [
+                "Authentication",
+                "OpenId",
+                "auth",
+                "facebook",
+                "google",
+                "oauth",
+                "omniauth",
+                "twitter"
+            ],
+            "time": "2014-04-07 17:00:57"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -521,24 +791,24 @@
         },
         {
             "name": "symfony/class-loader",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/ClassLoader",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "ba3300e6d79eb51ca9edf77791bbd0497f6030dc"
+                "reference": "deac802f76910708ab50d039806cfd1866895b52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/ba3300e6d79eb51ca9edf77791bbd0497f6030dc",
-                "reference": "ba3300e6d79eb51ca9edf77791bbd0497f6030dc",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/deac802f76910708ab50d039806cfd1866895b52",
+                "reference": "deac802f76910708ab50d039806cfd1866895b52",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/finder": "~2.0"
+                "symfony/finder": "~2.0,>=2.0.5"
             },
             "type": "library",
             "extra": {
@@ -567,21 +837,21 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-05 14:28:40"
         },
         {
             "name": "symfony/config",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "84c0c150c1520995f09ea9e47e817068b353cb0f"
+                "reference": "d94f222eff99a22ce313555b78642b4873418d56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/84c0c150c1520995f09ea9e47e817068b353cb0f",
-                "reference": "84c0c150c1520995f09ea9e47e817068b353cb0f",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/d94f222eff99a22ce313555b78642b4873418d56",
+                "reference": "d94f222eff99a22ce313555b78642b4873418d56",
                 "shasum": ""
             },
             "require": {
@@ -615,21 +885,21 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-03 08:01:59"
         },
         {
             "name": "symfony/console",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "ef825fd9f809d275926547c9e57cbf14968793e8"
+                "reference": "6ac6491ff60c0e5a941db3ccdc75a07adbb61476"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/ef825fd9f809d275926547c9e57cbf14968793e8",
-                "reference": "ef825fd9f809d275926547c9e57cbf14968793e8",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/6ac6491ff60c0e5a941db3ccdc75a07adbb61476",
+                "reference": "6ac6491ff60c0e5a941db3ccdc75a07adbb61476",
                 "shasum": ""
             },
             "require": {
@@ -672,21 +942,21 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-06 17:50:02"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "ff6efc95256cb33031933729e68b01d720b5436b"
+                "reference": "a1f566d1f92e142fa1593f4555d6d89e3044a9b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/ff6efc95256cb33031933729e68b01d720b5436b",
-                "reference": "ff6efc95256cb33031933729e68b01d720b5436b",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/a1f566d1f92e142fa1593f4555d6d89e3044a9b7",
+                "reference": "a1f566d1f92e142fa1593f4555d6d89e3044a9b7",
                 "shasum": ""
             },
             "require": {
@@ -719,21 +989,21 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-03 21:13:09"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "3346fc090a3eb6b53d408db2903b241af51dcb20"
+                "reference": "82462a90848a52c2533aa6b598b107d68076b018"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/3346fc090a3eb6b53d408db2903b241af51dcb20",
-                "reference": "3346fc090a3eb6b53d408db2903b241af51dcb20",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/82462a90848a52c2533aa6b598b107d68076b018",
+                "reference": "82462a90848a52c2533aa6b598b107d68076b018",
                 "shasum": ""
             },
             "require": {
@@ -766,7 +1036,59 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-03 15:33:07"
+        },
+        {
+            "name": "wouter0100/cakephp-opauth",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wouter0100/cakephp-opauth.git",
+                "reference": "a07920b947a77268a751e3cd27a61f00d24604a2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wouter0100/cakephp-opauth/zipball/a07920b947a77268a751e3cd27a61f00d24604a2",
+                "reference": "a07920b947a77268a751e3cd27a61f00d24604a2",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "3.0.*",
+                "opauth/opauth": "1.*",
+                "php": ">=5.3.0"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Wouter0100\\Opauth\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "U-Zyn Chua",
+                    "email": "chua@uzyn.com",
+                    "homepage": "http://uzyn.com"
+                },
+                {
+                    "name": "Wouter van Os",
+                    "email": "wouter@wouter0100.nl",
+                    "homepage": "http://wouter0100.nl"
+                }
+            ],
+            "description": "Opauth plugin for CakePHP v3.x, allowing simple plug-n-play 3rd-party authentication with CakePHP",
+            "homepage": "http://opauth.org",
+            "keywords": [
+                "Authentication",
+                "OPAuth",
+                "auth",
+                "cakephp",
+                "oauth"
+            ],
+            "time": "2015-01-12 12:48:03"
         }
     ],
     "packages-dev": [
@@ -776,17 +1098,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/bake.git",
-                "reference": "18e52a57b88682667aa56549ab3c7d31a0b33e85"
+                "reference": "c31e15747f090906bd6110f743c708d65786655c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/bake/zipball/18e52a57b88682667aa56549ab3c7d31a0b33e85",
-                "reference": "18e52a57b88682667aa56549ab3c7d31a0b33e85",
+                "url": "https://api.github.com/repos/cakephp/bake/zipball/c31e15747f090906bd6110f743c708d65786655c",
+                "reference": "c31e15747f090906bd6110f743c708d65786655c",
                 "shasum": ""
             },
             "require": {
                 "cakephp/cakephp": "3.0.x-dev",
-                "cakephp/plugin-installer": "*",
                 "php": ">=5.4"
             },
             "require-dev": {
@@ -794,9 +1115,6 @@
                 "phpunit/phpunit": "*"
             },
             "type": "cakephp-plugin",
-            "extra": {
-                "installer-name": "Bake"
-            },
             "autoload": {
                 "psr-4": {
                     "Bake\\": "src"
@@ -818,7 +1136,7 @@
                 "bake",
                 "cakephp"
             ],
-            "time": "2015-01-03 08:10:32"
+            "time": "2015-01-29 02:00:10"
         },
         {
             "name": "cakephp/debug_kit",
@@ -826,17 +1144,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "3c25e5c69cda7d6011d5b7c4784cf48c7b02c79b"
+                "reference": "85ad8958985b8cbbaa33628a016675a22ed57888"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/3c25e5c69cda7d6011d5b7c4784cf48c7b02c79b",
-                "reference": "3c25e5c69cda7d6011d5b7c4784cf48c7b02c79b",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/85ad8958985b8cbbaa33628a016675a22ed57888",
+                "reference": "85ad8958985b8cbbaa33628a016675a22ed57888",
                 "shasum": ""
             },
             "require": {
-                "cakephp/cakephp": "3.0.*-dev",
-                "cakephp/plugin-installer": "*"
+                "cakephp/cakephp": "3.0.*-dev"
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "dev-master",
@@ -844,7 +1161,9 @@
             },
             "type": "cakephp-plugin",
             "extra": {
-                "installer-name": "DebugKit"
+                "branch-alias": {
+                    "dev-master": "2.2.x-dev"
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -874,7 +1193,7 @@
                 "debug",
                 "kit"
             ],
-            "time": "2015-01-03 07:46:58"
+            "time": "2015-01-31 14:43:39"
         },
         {
             "name": "d11wtq/boris",
@@ -916,6 +1235,9 @@
     "stability-flags": {
         "cakephp/cakephp": 20,
         "cakephp/migrations": 20,
+        "friendsofcake/bootstrap-ui": 20,
+        "gourmet/common-mark": 20,
+        "opauth/google": 20,
         "cakephp/debug_kit": 20,
         "cakephp/bake": 20
     },

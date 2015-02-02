@@ -53,10 +53,10 @@ Router::scope('/', function ($routes) {
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     $routes->connect('/profile', ['controller' => 'Users', 'action' => 'profile']);
     $routes->connect('/settings', ['controller' => 'Users', 'action' => 'settings']);
-    $routes->connect('/add', ['controller' => 'Tasks', 'action' => 'add']);
+    $routes->connect('/create', ['controller' => 'Tasks', 'action' => 'create']);
     $routes->connect('/edit/*', ['controller' => 'Tasks', 'action' => 'edit']);
     $routes->connect('/view/*', ['controller' => 'Tasks', 'action' => 'view']);
-    $routes->connect('/tags/*', ['controller' => 'Tasks', 'action' => 'tags']);
+    $routes->connect('/tagged/*', ['controller' => 'Tasks', 'action' => 'tagged']);
     $routes->connect('/leaderboard', ['controller' => 'Tasks', 'action' => 'leaderboard']);
     $routes->connect('/help', ['controller' => 'Pages', 'action' => 'display', 'help']);
 

@@ -12,7 +12,7 @@ Tags are User-created
 Task
     id
     created
-    status              0 = Todo, 1 = Completed (points awarded), 2 = Closed (no points awarded)
+    status              Open, Completed (points awarded), Closed (no points awarded)
     user_id             User who created the Task
     name
     description

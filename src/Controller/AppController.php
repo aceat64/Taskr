@@ -26,7 +26,8 @@ use Cake\Controller\Controller;
  */
 class AppController extends Controller
 {
-    public $helpers = ['Session'];
+    public $components = ['BootstrapUI.Flash'];
+    public $helpers = ['BootstrapUI.Form', 'Session', 'UserData', 'Text' => ['className' => 'MyText']];
 
     /**
      * Initialization hook method.

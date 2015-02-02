@@ -1,4 +1,4 @@
-<h2><?php echo __('Edit Your Task'); ?></h2>
+<h2><?php echo __('Create New Task'); ?></h2>
 <div class="panel panel-default">
     <div class="panel-body">
         <?php
@@ -11,7 +11,7 @@
             <div class="col-lg-offset-2 col-lg-10">
                 <?php
                 echo $this->Form->button('Submit', ['type' => 'submit', 'class' => 'btn-primary']);
-                echo $this->Html->link('Cancel', ['action' => 'view', $task->id, $this->Text->slug($task->name)], ['class' => 'btn btn-link']);
+                echo $this->Html->link('Cancel', ['action' => 'index'], ['class' => 'btn btn-link']);
                 ?>
             </div>
         </div>

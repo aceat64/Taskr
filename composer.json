@@ -8,7 +8,11 @@
         "php": ">=5.4.16",
         "cakephp/cakephp": "3.0.*-dev",
         "mobiledetect/mobiledetectlib": "2.*",
-        "cakephp/migrations": "dev-master"
+        "cakephp/migrations": "dev-master",
+        "friendsofcake/bootstrap-ui": "dev-master",
+        "gourmet/common-mark": "dev-master",
+        "wouter0100/cakephp-opauth": "*",
+        "opauth/google": "1.0.*@dev"
     },
     "require-dev": {
         "d11wtq/boris": "1.0.*",
@@ -31,7 +35,8 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "App\\Console\\Installer::postInstall"
+        "post-install-cmd": "App\\Console\\Installer::postInstall",
+        "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump"
     },
     "minimum-stability" : "dev",
     "prefer-stable": true

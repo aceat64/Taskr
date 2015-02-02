@@ -46,45 +46,48 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li<?php if (in_array($this->request->params['action'], ['index']) && $this->name == 'Tasks') { echo ' class="active"'; } ?>>
+                    <li<?php if (!in_array($this->request->params['action'], ['create', 'tags', 'leaderboard']) && $this->name == 'Tasks') { echo ' class="active"'; } ?>>
                         <?= $this->Html->link('Tasks', ['controller' => 'Tasks', 'action' => 'index']) ?>
                     </li>
-                    <li<?php if (in_array($this->request->params['action'], ['tags']) && $this->name == 'Tasks') { echo ' class="active"'; } ?>>
-                        <?= $this->Html->link('Tags', ['controller' => 'Tasks', 'action' => 'tags']) ?>
+                    <li<?php if (in_array($this->request->params['action'], ['index']) && $this->name == 'Tags') { echo ' class="active"'; } ?>>
+                        <?= $this->Html->link('Tags', ['controller' => 'Tags', 'action' => 'index']) ?>
                     </li>
                     <li<?php if (in_array($this->request->params['action'], ['leaderboard']) && $this->name == 'Tasks') { echo ' class="active"'; } ?>>
                         <?= $this->Html->link('Leaderboard', ['controller' => 'Tasks', 'action' => 'leaderboard']) ?>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if (!empty($userData)): ?>
-                        <?php if ($userData['admin'] === true): ?>
-                            <li class="dropdown">
+                    <li<?php if($this->name == 'Tasks' && $this->request->params['action'] == 'create') { echo ' class="active"'; } ?>>
+                        <?= $this->Html->link('Create', array('controller' => 'Tasks', 'action' => 'create')) ?>
+                    </li>
+                    <?php if ($this->UserData->id()): ?>
+                        <?php if ($this->UserData->admin() === true): ?>
+                            <li class="dropdown<?php if($this->name == 'Flags' || ($this->name == 'Users' && in_array($this->request->params['action'], ['index', 'add', 'edit']))) { echo ' active'; } ?>">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     Admin <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
+                                    <li<?php if($this->name == 'Flags' && $this->request->params['action'] == 'index') { echo ' class="active"'; } ?>>
                                         <?= $this->Html->link('Flags', ['controller' => 'flags', 'action' => 'index']) ?>
                                     </li>
-                                    <li>
+                                    <li<?php if($this->name == 'Users' && $this->request->params['action'] == 'index') { echo ' class="active"'; } ?>>
                                         <?= $this->Html->link('List Users', ['controller' => 'Users', 'action' => 'index']) ?>
                                     </li>
-                                    <li>
+                                    <li<?php if($this->name == 'Users' && $this->request->params['action'] == 'add') { echo ' class="active"'; } ?>>
                                         <?= $this->Html->link('Add User', ['controller' => 'Users', 'action' => 'add']) ?>
                                     </li>
                                 </ul>
                             </li>
                         <?php endif; ?>
-                        <li class="dropdown">
+                        <li class="dropdown<?php if($this->name == 'Users' && in_array($this->request->params['action'], ['profile', 'settings'])) { echo ' active'; } ?>">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <?= $userData['username'] ?> <span class="caret"></span>
+                                <?= $this->UserData->username() ?> <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li>
+                                <li<?php if($this->name == 'Users' && $this->request->params['action'] == 'profile') { echo ' class="active"'; } ?>>
                                     <?= $this->Html->link('Profile', ['controller' => 'Users', 'action' => 'profile']) ?>
                                 </li>
-                                <li>
+                                <li<?php if($this->name == 'Users' && $this->request->params['action'] == 'settings') { echo ' class="active"'; } ?>>
                                     <?= $this->Html->link('Settings', ['controller' => 'Users', 'action' => 'settings']) ?>
                                 </li>
                                 <li class="divider"></li>
@@ -94,7 +97,7 @@
                             </ul>
                         </li>
                     <?php else: ?>
-                        <li>
+                        <li<?php if($this->name == 'Users' && $this->request->params['action'] == 'login') { echo ' class="active"'; } ?>>
                             <?= $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login']) ?>
                         </li>
                     <?php endif; ?>
@@ -106,8 +109,9 @@
         </div>
     </nav>
 
-    <div class="container theme-showcase" role="main">
+    <div class="container" role="main">
         <?= $this->Flash->render() ?>
+        <?= $this->Flash->render('auth') ?>
         <?= $this->fetch('content') ?>
     </div><!--/.container -->
 

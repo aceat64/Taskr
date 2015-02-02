@@ -10,10 +10,33 @@ use App\Controller\AppController;
  */
 class TasksController extends AppController
 {
+    public $paginate = [
+        'limit' => 25,
+        'order' => [
+            'Tasks.created' => 'asc'
+        ],
+        'contain' => [
+            'Users',
+            'Tags',
+            'Votes'
+        ],
+        'sortWhitelist' => [
+            'id',
+            'name',
+            'created',
+            'Users.username',
+            'total_points',
+            'base_points',
+            'gift_points',
+            'vote_count',
+            'comment_count'
+        ]
+    ];
+
     public function beforeFilter(\Cake\Event\Event $event)
     {
         // Allow actions to public
-        $this->Auth->allow(['index','view','tags']);
+        $this->Auth->allow(['index', 'view', 'leaderboard']);
 
         parent::beforeFilter($event);
     }
@@ -23,7 +46,7 @@ class TasksController extends AppController
         $action = $this->request->params['action'];
 
         // Allow actions to logged in users
-        if (in_array($action, ['add'])) {
+        if (in_array($action, ['create',  'like', 'unlike'])) {
             return true;
         }
 
@@ -49,11 +72,21 @@ class TasksController extends AppController
      *
      * @return void
      */
-    public function index()
+    public function index($status = null)
     {
-        $this->paginate = [
-            'contain' => ['Users']
-        ];
+        switch ($status) {
+            case 'open':
+            case 'completed':
+            case 'closed':
+                $this->paginate['conditions'] = ['status' => $status];
+                break;
+            case null:
+                // default to showing open tasks
+                $this->paginate['conditions'] = ['status' => 'open'];
+                break;
+            // all others, assume they wanted all and don't set a condition
+        }
+
         $this->set('tasks', $this->paginate($this->Tasks));
     }
 
@@ -67,12 +100,12 @@ class TasksController extends AppController
     public function view($id = null)
     {
         $task = $this->Tasks->get($id, [
-            'contain' => ['Users', 'Tags', 'Comments', 'Completions', 'Gifts', 'Votes']
+            'contain' => ['Users', 'Tags', 'Comments', 'Completions', 'Gifts' => ['Users'], 'Votes' => ['Users']]
         ]);
         $this->set('task', $task);
     }
 
-    public function tags()
+    public function tagged()
     {
         $tags = $this->request->params['pass'];
         $tasks = $this->Tasks->find('tagged', [
@@ -82,14 +115,33 @@ class TasksController extends AppController
     }
 
     /**
+    * Leaderboard method
+    *
+    * @return void
+    */
+    public function leaderboard()
+    {
+        // Nothing here yet
+    }
+
+    /**
      * Add method
      *
      * @return void
      */
-    public function add()
+    public function create()
     {
         $task = $this->Tasks->newEntity();
         if ($this->request->is('post')) {
+            // Don't let them set any of these fields
+            $this->request->data['status'] = 'open';
+            $this->request->data['user_id'] = $this->Auth->user('id');
+            $this->request->data['base_points'] = 1;
+            $this->request->data['gift_points'] = 0;
+            $this->request->data['votes_count'] = 0;
+            $this->request->data['completions_count'] = 0;
+            $this->request->data['comments_count'] = 0;
+
             $task = $this->Tasks->patchEntity($task, $this->request->data);
             if ($this->Tasks->save($task)) {
                 $this->Flash->success('The task has been saved.');
@@ -98,9 +150,7 @@ class TasksController extends AppController
                 $this->Flash->error('The task could not be saved. Please, try again.');
             }
         }
-        $users = $this->Tasks->Users->find('list', ['limit' => 200]);
-        $tags = $this->Tasks->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('task', 'users', 'tags'));
+        $this->set(compact('task'));
     }
 
     /**
@@ -115,7 +165,23 @@ class TasksController extends AppController
         $task = $this->Tasks->get($id, [
             'contain' => ['Tags']
         ]);
+
+        if (in_array($task->status, ['completed', 'closed'])) {
+            $this->Flash->error('You can not edit a task that has been completed or closed.');
+            return $this->redirect(['action' => 'index']);
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
+            // Don't let them change any of these fields
+            unset($this->request->data['id']);
+            unset($this->request->data['status']);
+            unset($this->request->data['user_id']);
+            unset($this->request->data['base_points']);
+            unset($this->request->data['gift_points']);
+            unset($this->request->data['votes_count']);
+            unset($this->request->data['completions_count']);
+            unset($this->request->data['comments_count']);
+
             $task = $this->Tasks->patchEntity($task, $this->request->data);
             if ($this->Tasks->save($task)) {
                 $this->Flash->success('The task has been saved.');
@@ -124,9 +190,77 @@ class TasksController extends AppController
                 $this->Flash->error('The task could not be saved. Please, try again.');
             }
         }
-        $users = $this->Tasks->Users->find('list', ['limit' => 200]);
-        $tags = $this->Tasks->Tags->find('list', ['limit' => 200]);
-        $this->set(compact('task', 'users', 'tags'));
+        $this->set(compact('task'));
+    }
+
+    /**
+    * like method
+    *
+    * @param string|null $id Task id
+    * @return void
+    * @throws \Cake\Network\Exception\NotFoundException
+    */
+    public function like($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+
+        $task = $this->Tasks->get($id);
+
+        if ($task->user_id == $this->Auth->user('id')) {
+            $this->Flash->error('You are not allowed to like your own tasks!');
+            return $this->redirect($this->referer());
+        }
+
+        if ($task->status != 'open') {
+            $this->Flash->error('This task is not open and can not be liked.');
+            return $this->redirect($this->referer());
+        }
+
+        $vote = $this->Tasks->Votes->find(
+            'all',
+            ['conditions' => ['user_id' => $this->Auth->user('id'), 'task_id' => $id]]
+        );
+
+        // No previous vote by this user, so create a new one
+        if ($vote->first() === null) {
+            $this->Tasks->Votes->save(
+                $this->Tasks->Votes->newEntity(['task_id' => $task->id, 'user_id' => $this->Auth->user('id')])
+            );
+        }
+
+        return $this->redirect($this->referer());
+    }
+
+    /**
+    * unlike method
+    *
+    * @param string|null $id Task id
+    * @return void
+    * @throws \Cake\Network\Exception\NotFoundException
+    */
+    public function unlike($id = null)
+    {
+        // I feel like this whole method is done wrong
+        $this->request->allowMethod(['post', 'delete']);
+
+        $task = $this->Tasks->get($id);
+
+        if ($task->status != 'open') {
+            $this->Flash->error('This task is not open and can not be unliked.');
+            return $this->redirect($this->referer());
+        }
+
+        $votes = $this->Tasks->Votes->find(
+            'all',
+            ['conditions' => ['user_id' => $this->Auth->user('id'), 'task_id' => $id]]
+        );
+
+        $first = $votes->first();
+
+        if ($first) {
+            $this->Tasks->Votes->delete($this->Tasks->Votes->get($first->id));
+        }
+        return $this->redirect($this->referer());
     }
 
     /**

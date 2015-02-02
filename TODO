@@ -3,3 +3,13 @@ User: validate e-mail when changed
 User: support social signin/signup
 User: use gravatars
 User: make remember me work
+Migrations: figure out why these are broke
+Tags: Views for index and view
+Tasks: leaderboard
+Tasks: Adding tags
+Tasks: sharing
+Tasks: Admin creation with higher base points
+Comments: Adding comments to tasks
+Completions: Adding completions to tasks and awarding users with points
+Gifts: Adding gifts to tasks
+Flags: Everything

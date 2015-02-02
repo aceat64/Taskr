@@ -1,45 +1,23 @@
 <h2><?php echo __('Create Account'); ?></h2>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <?= $this->Form->create($user, array('class' => 'form-horizontal')) ?>
-        <div class="form-group">
-            <?php echo $this->Form->label('username', 'Username', array('class' => 'col-lg-2 control-label')); ?>
-            <div class="col-lg-4">
-                <?php echo $this->Form->input('username', array('label' => false, 'class' => 'form-control')); ?>
+<div class="col-sm-8">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <?php
+            echo $this->Form->create($user, ['horizontal' => true]);
+            echo $this->Form->input('username');
+            echo $this->Form->input('password');
+            echo $this->Form->input('confirm_password', ['type' => 'password']);
+            echo $this->Form->input('display_name');
+            echo $this->Form->input('email');
+            ?>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <?php
+                    echo $this->Form->button('Submit', ['type' => 'submit', 'class' => 'btn-primary']);
+                    echo $this->Html->link('Cancel', ['controller' => 'tasks', 'action' => 'index'], ['class' => 'btn btn-link']);
+                    ?>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <?php echo $this->Form->label('password', 'Password', array('class' => 'col-lg-2 control-label')); ?>
-            <div class="col-lg-4">
-                <?php echo $this->Form->input('password', array('label' => false, 'class' => 'form-control')); ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <?php echo $this->Form->label('confirm_password', 'Confirm', array('class' => 'col-lg-2 control-label')); ?>
-            <div class="col-lg-4">
-                <?php echo $this->Form->password('confirm_password', array('label' => false, 'class' => 'form-control')); ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <?php echo $this->Form->label('display_name', 'Display Name', array('class' => 'col-lg-2 control-label')); ?>
-            <div class="col-lg-4">
-                <?php echo $this->Form->input('display_name', array('label' => false, 'class' => 'form-control')); ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <?php echo $this->Form->label('email', 'E-Mail', array('class' => 'col-lg-2 control-label')); ?>
-            <div class="col-lg-4">
-                <?php echo $this->Form->input('email', array('label' => false, 'class' => 'form-control')); ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-offset-2 col-lg-10">
-                <?php
-                echo $this->Form->button(__('Submit'), array('type'=>'submit','class'=>'btn btn-primary'));
-                echo $this->Html->link(__('Cancel'), array('controller' => 'Tasks', 'action' => 'index'), array('class' => 'btn btn-link'));
-                echo $this->Form->end();
-                ?>
-            </div>
-        </div>
-    </div>
-</div><!-- /.panel -->
+    </div><!-- /.panel -->
+</div>

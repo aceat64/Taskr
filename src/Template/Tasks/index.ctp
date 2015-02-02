@@ -1,63 +1,38 @@
-<div class="actions columns large-2 medium-3">
-    <h3><?= __('Actions') ?></h3>
-    <ul class="side-nav">
-        <li><?= $this->Html->link(__('New Task'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Comments'), ['controller' => 'Comments', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Comment'), ['controller' => 'Comments', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Completions'), ['controller' => 'Completions', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Completion'), ['controller' => 'Completions', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Gifts'), ['controller' => 'Gifts', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Gift'), ['controller' => 'Gifts', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Votes'), ['controller' => 'Votes', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Vote'), ['controller' => 'Votes', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Tags'), ['controller' => 'Tags', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Tag'), ['controller' => 'Tags', 'action' => 'add']) ?> </li>
-    </ul>
-</div>
-<div class="tasks index large-10 medium-9 columns">
-    <table cellpadding="0" cellspacing="0">
+<table class="table table-striped table-bordered table-condensed">
     <thead>
-        <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
-            <th><?= $this->Paginator->sort('created') ?></th>
-            <th><?= $this->Paginator->sort('status') ?></th>
-            <th><?= $this->Paginator->sort('user_id') ?></th>
-            <th><?= $this->Paginator->sort('name') ?></th>
-            <th><?= $this->Paginator->sort('base_points') ?></th>
-            <th><?= $this->Paginator->sort('gift_points') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
-        </tr>
+        <th style="width: 1%"><?= $this->Paginator->sort('total_points', 'Points');?></th>
+        <th style="width: 60%"><?= $this->Paginator->sort('name', 'Task');?></th>
+        <th style="width: 20%">Tags</th>
+        <th style="width: 1%"><?= $this->Paginator->sort('comment_count', 'Comments');?></th>
     </thead>
     <tbody>
-    <?php foreach ($tasks as $task): ?>
+        <?php foreach ($tasks as $task): ?>
         <tr>
-            <td><?= $this->Number->format($task->id) ?></td>
-            <td><?= h($task->created) ?></td>
-            <td><?= $this->Number->format($task->status) ?></td>
+            <td><?= $task->total_points ?></td>
+            <td><?= $this->Html->link($task->name, ['action' => 'view', $task->id, $this->Text->slug($task->name)]) ?></td>
             <td>
-                <?= $task->has('user') ? $this->Html->link($task->user->id, ['controller' => 'Users', 'action' => 'view', $task->user->id]) : '' ?>
+                <?php
+                $tag_links = [];
+                foreach ($task->tags as $tag) {
+                    $tag_links[] = $this->Html->link($tag->name, ['action' => 'tagged', $tag->name]);
+                }
+                echo count($tag_links) ? implode(', ', $tag_links) : 'none';
+                ?>
             </td>
-            <td><?= h($task->name) ?></td>
-            <td><?= $this->Number->format($task->base_points) ?></td>
-            <td><?= $this->Number->format($task->gift_points) ?></td>
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['action' => 'view', $task->id]) ?>
-                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $task->id]) ?>
-                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $task->id], ['confirm' => __('Are you sure you want to delete # {0}?', $task->id)]) ?>
-            </td>
+            <td><?= $task->comment_count ?></td>
         </tr>
-
-    <?php endforeach; ?>
+        <?php endforeach; ?>
     </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
-    </div>
-</div>
+</table>
+<?php if ($this->Paginator->hasPage('Tasks', 2)): ?>
+<div class="paginator">
+    <ul class="pagination">
+        <?php
+        echo $this->Paginator->prev('&laquo;', ['escape' => false]);
+        echo $this->Paginator->numbers();
+        echo $this->Paginator->next('&raquo;', ['escape' => false]);
+        ?>
+    </ul>
+    <p><?= $this->Paginator->counter('Page {{page}} of {{pages}}') ?></p>
+</div><!--/.paginator -->
+<?php endif; ?>

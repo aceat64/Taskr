@@ -182,6 +182,10 @@ if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
 
+Plugin::load('BootstrapUI');
+Plugin::load('Gourmet/CommonMark');
+//Plugin::load('Wouter0100/Opauth', array('routes' => true, 'bootstrap' => true));
+
 /**
  * Connect middleware/dispatcher filters.
  */

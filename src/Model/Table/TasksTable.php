@@ -57,9 +57,22 @@ class TasksTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->add('status', 'valid', ['rule' => 'numeric'])
+
+            ->add('username', [
+                'unique' => [
+                    'rule' => 'validateUnique',
+                    'provider' => 'table',
+                    'message' => 'This username is already taken.',
+                ]
+            ])
+            ->add('status', [
+                'inList' => [
+                    'rule' => ['inlist', ['open', 'completed', 'closed']],
+                    'message' => 'Please specify a valid status.'
+                ]
+            ])
             ->requirePresence('status', 'create')
-            ->notEmpty('status')
+
             ->add('user_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('user_id', 'create')
             ->notEmpty('user_id')
@@ -72,13 +85,7 @@ class TasksTable extends Table
             ->notEmpty('base_points')
             ->add('gift_points', 'valid', ['rule' => 'numeric'])
             ->requirePresence('gift_points', 'create')
-            ->notEmpty('gift_points')
-            ->add('votes_count', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('votes_count', 'create')
-            ->notEmpty('votes_count')
-            ->add('completions_count', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('completions_count', 'create')
-            ->notEmpty('completions_count');
+            ->notEmpty('gift_points');
 
         return $validator;
     }
@@ -104,10 +111,12 @@ class TasksTable extends Table
             });
     }
 
-    public function beforeSave($event, $entity, $options)
+    public function beforeSave($event, $task, $options)
     {
-        if ($entity->tag_string) {
-            $entity->tags = $this->_buildTags($entity->tag_string);
+        $task->total_points = $task->base_points + $task->gift_points + $task->vote_count;
+
+        if ($task->tag_string) {
+            $task->tags = $this->_buildTags($task->tag_string);
         }
     }
 
@@ -135,7 +144,7 @@ class TasksTable extends Table
         foreach ($new as $tag) {
             $out[] = $this->Tags->newEntity(['name' => $tag]);
         }
-        
+
         return $out;
     }
 }

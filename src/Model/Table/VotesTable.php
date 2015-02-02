@@ -30,6 +30,18 @@ class VotesTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
+
+        $this->addBehavior('CounterCache', [
+            'Tasks' => [
+                'vote_count',
+                'total_points' => function ($event, $entity, $table) {
+                    $task = $table->Tasks->get($entity->task_id);
+                    $total_points = $task->base_points + $task->gift_points + $task->vote_count;
+                    return $total_points;
+                }
+            ],
+            'Users' => ['vote_count']
+        ]);
     }
 
     /**
@@ -46,6 +58,22 @@ class VotesTable extends Table
             ->add('task_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('task_id', 'create')
             ->notEmpty('task_id')
+
+            /* Disabled, validateUnique is not working
+            ->add('task_id', [
+                'validateUnique' => [
+                    'rule' => ['validateUnique', ['scope' => 'user_id']],
+                    'last' => true,
+                    'message' => 'Vote already cast',
+                    'provider' => 'table',
+                ],
+                'numeric' => [
+                    'rule' => 'numeric',
+                    'message' => 'Must be a valid task id.',
+                ]
+            ])
+            */
+
             ->add('user_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('user_id', 'create')
             ->notEmpty('user_id');

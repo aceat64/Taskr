@@ -1,231 +1,205 @@
-<div class="actions columns large-2 medium-3">
-    <h3><?= __('Actions') ?></h3>
-    <ul class="side-nav">
-        <li><?= $this->Html->link(__('Edit Task'), ['action' => 'edit', $task->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Task'), ['action' => 'delete', $task->id], ['confirm' => __('Are you sure you want to delete # {0}?', $task->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Tasks'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Task'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Comments'), ['controller' => 'Comments', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Comment'), ['controller' => 'Comments', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Completions'), ['controller' => 'Completions', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Completion'), ['controller' => 'Completions', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Gifts'), ['controller' => 'Gifts', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Gift'), ['controller' => 'Gifts', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Votes'), ['controller' => 'Votes', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Vote'), ['controller' => 'Votes', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Tags'), ['controller' => 'Tags', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Tag'), ['controller' => 'Tags', 'action' => 'add']) ?> </li>
-    </ul>
-</div>
-<div class="tasks view large-10 medium-9 columns">
-    <h2><?= h($task->name) ?></h2>
+<div class="task view">
+    <h2 class="task-title">
+        <?php
+        switch ($task->status) {
+            case 'completed':
+                echo '<small class="text-success">[Completed]</small> ';
+                break;
+            case 'closed':
+                echo '<small class="text-danger">[Closed]</small> ';
+                break;
+        }
+        echo h($task->name);
+        ?>
+    </h2>
+
     <div class="row">
-        <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('User') ?></h6>
-            <p><?= $task->has('user') ? $this->Html->link($task->user->id, ['controller' => 'Users', 'action' => 'view', $task->user->id]) : '' ?></p>
-            <h6 class="subheader"><?= __('Name') ?></h6>
-            <p><?= h($task->name) ?></p>
-        </div>
-        <div class="large-2 columns numbers end">
-            <h6 class="subheader"><?= __('Id') ?></h6>
-            <p><?= $this->Number->format($task->id) ?></p>
-            <h6 class="subheader"><?= __('Status') ?></h6>
-            <p><?= $this->Number->format($task->status) ?></p>
-            <h6 class="subheader"><?= __('Base Points') ?></h6>
-            <p><?= $this->Number->format($task->base_points) ?></p>
-            <h6 class="subheader"><?= __('Gift Points') ?></h6>
-            <p><?= $this->Number->format($task->gift_points) ?></p>
-            <h6 class="subheader"><?= __('Votes Count') ?></h6>
-            <p><?= $this->Number->format($task->votes_count) ?></p>
-            <h6 class="subheader"><?= __('Completions Count') ?></h6>
-            <p><?= $this->Number->format($task->completions_count) ?></p>
-        </div>
-        <div class="large-2 columns dates end">
-            <h6 class="subheader"><?= __('Created') ?></h6>
-            <p><?= h($task->created) ?></p>
+        <div class="col-sm-8 col-sm-offset-2">
+            <p>
+
+            </p>
         </div>
     </div>
-    <div class="row texts">
-        <div class="columns large-9">
-            <h6 class="subheader"><?= __('Description') ?></h6>
-            <?= $this->Text->autoParagraph(h($task->description)); ?>
 
-        </div>
-    </div>
-</div>
-<div class="related row">
-    <div class="column large-12">
-    <h4 class="subheader"><?= __('Related Comments') ?></h4>
-    <?php if (!empty($task->comments)): ?>
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th><?= __('Id') ?></th>
-            <th><?= __('Created') ?></th>
-            <th><?= __('Task Id') ?></th>
-            <th><?= __('User Id') ?></th>
-            <th><?= __('Text') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
-        </tr>
-        <?php foreach ($task->comments as $comments): ?>
-        <tr>
-            <td><?= h($comments->id) ?></td>
-            <td><?= h($comments->created) ?></td>
-            <td><?= h($comments->task_id) ?></td>
-            <td><?= h($comments->user_id) ?></td>
-            <td><?= h($comments->text) ?></td>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                    <?php
+                    echo $this->Number->format($task->total_points);
+                    echo $task->total_points == 1 ? ' point' : ' points';
+                    echo ' - ';
+                    echo $this->Time->timeAgoInWords($task->created, ['end' => '+1 year']);
+                    echo ' by ';
+                    echo $this->Html->link($task->user->username, ['controller' => 'Users', 'action' => 'view', $task->user->id]);
+                    ?>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p><?= h($task->description); ?></p>
+                </div><!--/.panel-body -->
+                <div class="panel-footer">
+                    <div class="btn-group">
+                        <?php
+                        if ($task->status == 'open' && $this->UserData->id()) {
+                            echo $this->Html->link('I Did This', ['action' => 'complete', $task->id], ['class' => 'btn btn-success']);
+                        }
+                        ?>
+                    </div>
+                    <div class="btn-group">
+                        <?= $this->Html->link('Comment', '#comment', ['class' => 'btn btn-primary']) ?>
+                    </div>
+                    <div class="btn-group">
+                        <?= $this->Html->link('Share', '#share', ['class' => 'btn btn-info']) ?>
+                    </div>
+                    <?php if ($task->user_id == $this->UserData->id() || $this->UserData->admin()): ?>
+                    <div class="btn-group">
+                        <?= $this->Html->link('Edit Task', ['action' => 'edit', $task->id], ['class' => 'btn btn-default']) ?>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <?php
+                                echo $this->Form->postLink('
+                                    Close Task',
+                                    ['action' => 'close', $task->id],
+                                    ['confirm' => 'Closing this task will not award any points, are you sure?']
+                                );
+                                ?>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div><!--/.panel -->
+        </div><!--/.col-sm-12 -->
+    </div><!--/.row -->
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Likes (<?= $task->vote_count ?>)
+                    <?php
+                    if ($task->user_id == $this->UserData->id() || !$this->UserData->id()) {
+                        echo '';
+                    } elseif ($task->voted) {
+                        echo $this->Form->postLink(
+                            'Unlike',
+                            ['action' => 'unlike', $task->id],
+                            ['escape' => false, 'class' => 'btn btn-warning btn-xs pull-right']
+                        );
+                    } else {
+                        echo $this->Form->postLink(
+                            '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Like',
+                            ['action' => 'like', $task->id],
+                            ['escape' => false, 'class' => 'btn btn-primary btn-xs pull-right']
+                        );
+                    }
+                    ?>
+                </div>
+                <div class="panel-body">
+                    <?php
+                    $vote_links = [];
+                    foreach ($task->votes as $vote) {
+                        $vote_links[] = $this->Html->link($vote->user->username, ['controller' => 'users', 'action' => 'profile', $vote->user->username]);
+                    }
+                    echo '<p>' . (count($vote_links) ? implode(', ', $vote_links) : 'none') . '</p>';
+                    ?>
+                </div><!--/.panel-body -->
+            </div><!--/.panel -->
+        </div><!--/.col-sm-4 -->
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Gift Points (<?= $task->gift_points ?>)
+                    <?php
+                    if ($this->UserData->id() && !$task->gifted) {
+                        echo $this->Form->postLink(
+                            '<span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Gift',
+                            ['action' => 'gift', $task->id],
+                            ['escape' => false, 'class' => 'btn btn-primary btn-xs pull-right']
+                        );
+                    }
+                    ?>
+                </div>
+                <div class="panel-body">
+                    <?php
+                    $gift_links = [];
+                    foreach ($task->gifts as $gift) {
+                        $gift_links[] = $this->Html->link($gift->user->username . "({$gift->points})", ['controller' => 'users', 'action' => 'profile', $gift->user->username]);
+                    }
+                    echo '<p>' . (count($gift_links) ? implode(', ', $vote_links) : 'none') . '</p>';
+                    ?>
+                </div><!--/.panel-body -->
+            </div><!--/.panel -->
+        </div><!--/.col-sm-4 -->
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tags (<?= count($task->tags) ?>)
+                    <?php
+                    if ($this->UserData->id()) {
+                        echo $this->Form->postLink(
+                        '<span class="glyphicon glyphicon-tag" aria-hidden="true"></span> Add Tag',
+                        ['action' => 'tag', $task->id],
+                        ['escape' => false, 'class' => 'btn btn-primary btn-xs pull-right']
+                    );
+                }
+                ?>
+                </div>
+                <div class="panel-body">
+                    <?php
+                    $tag_links = [];
+                    foreach ($task->tags as $tag) {
+                        $tag_links[] = $this->Html->link($tag->name, ['action' => 'tagged', $tag->name]);
+                    }
+                    echo '<p>' . (count($tag_links) ? implode(', ', $tag_links) : 'none') . '</p>';
+                    ?>
+                </div><!--/.panel-body -->
+            </div><!--/.panel -->
+        </div><!--/.col-sm-4 -->
+    </div><!--/.row -->
 
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['controller' => 'Comments', 'action' => 'view', $comments->id]) ?>
+    <?php if ($task->completion_count != 0): ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Comments (<?= $task->comment_count ?>)
+                </div>
+                <div class="panel-body">
+                    <?php
+                    if ($task->comment_count == 0) {
+                        echo '<p>No comments</p>';
+                    } else {
 
-                <?= $this->Html->link(__('Edit'), ['controller' => 'Comments', 'action' => 'edit', $comments->id]) ?>
-
-                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Comments', 'action' => 'delete', $comments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $comments->id)]) ?>
-
-            </td>
-        </tr>
-
-        <?php endforeach; ?>
-    </table>
+                    }
+                    ?>
+                </div><!--/.panel-body -->
+            </div><!--/.panel -->
+        </div><!--/.col-sm-12 -->
+    </div><!--/.row -->
     <?php endif; ?>
-    </div>
-</div>
-<div class="related row">
-    <div class="column large-12">
-    <h4 class="subheader"><?= __('Related Completions') ?></h4>
-    <?php if (!empty($task->completions)): ?>
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th><?= __('Id') ?></th>
-            <th><?= __('Created') ?></th>
-            <th><?= __('Task Id') ?></th>
-            <th><?= __('User Id') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
-        </tr>
-        <?php foreach ($task->completions as $completions): ?>
-        <tr>
-            <td><?= h($completions->id) ?></td>
-            <td><?= h($completions->created) ?></td>
-            <td><?= h($completions->task_id) ?></td>
-            <td><?= h($completions->user_id) ?></td>
 
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['controller' => 'Completions', 'action' => 'view', $completions->id]) ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Comments (<?= $task->comment_count ?>)
+                </div>
+                <div class="panel-body">
+                    <?php
+                    if ($task->comment_count == 0) {
+                        echo '<p>No comments</p>';
+                    } else {
 
-                <?= $this->Html->link(__('Edit'), ['controller' => 'Completions', 'action' => 'edit', $completions->id]) ?>
-
-                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Completions', 'action' => 'delete', $completions->id], ['confirm' => __('Are you sure you want to delete # {0}?', $completions->id)]) ?>
-
-            </td>
-        </tr>
-
-        <?php endforeach; ?>
-    </table>
-    <?php endif; ?>
-    </div>
-</div>
-<div class="related row">
-    <div class="column large-12">
-    <h4 class="subheader"><?= __('Related Gifts') ?></h4>
-    <?php if (!empty($task->gifts)): ?>
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th><?= __('Id') ?></th>
-            <th><?= __('Created') ?></th>
-            <th><?= __('Task Id') ?></th>
-            <th><?= __('User Id') ?></th>
-            <th><?= __('Credits') ?></th>
-            <th><?= __('Points') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
-        </tr>
-        <?php foreach ($task->gifts as $gifts): ?>
-        <tr>
-            <td><?= h($gifts->id) ?></td>
-            <td><?= h($gifts->created) ?></td>
-            <td><?= h($gifts->task_id) ?></td>
-            <td><?= h($gifts->user_id) ?></td>
-            <td><?= h($gifts->credits) ?></td>
-            <td><?= h($gifts->points) ?></td>
-
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['controller' => 'Gifts', 'action' => 'view', $gifts->id]) ?>
-
-                <?= $this->Html->link(__('Edit'), ['controller' => 'Gifts', 'action' => 'edit', $gifts->id]) ?>
-
-                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Gifts', 'action' => 'delete', $gifts->id], ['confirm' => __('Are you sure you want to delete # {0}?', $gifts->id)]) ?>
-
-            </td>
-        </tr>
-
-        <?php endforeach; ?>
-    </table>
-    <?php endif; ?>
-    </div>
-</div>
-<div class="related row">
-    <div class="column large-12">
-    <h4 class="subheader"><?= __('Related Votes') ?></h4>
-    <?php if (!empty($task->votes)): ?>
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th><?= __('Id') ?></th>
-            <th><?= __('Created') ?></th>
-            <th><?= __('Task Id') ?></th>
-            <th><?= __('User Id') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
-        </tr>
-        <?php foreach ($task->votes as $votes): ?>
-        <tr>
-            <td><?= h($votes->id) ?></td>
-            <td><?= h($votes->created) ?></td>
-            <td><?= h($votes->task_id) ?></td>
-            <td><?= h($votes->user_id) ?></td>
-
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['controller' => 'Votes', 'action' => 'view', $votes->id]) ?>
-
-                <?= $this->Html->link(__('Edit'), ['controller' => 'Votes', 'action' => 'edit', $votes->id]) ?>
-
-                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Votes', 'action' => 'delete', $votes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $votes->id)]) ?>
-
-            </td>
-        </tr>
-
-        <?php endforeach; ?>
-    </table>
-    <?php endif; ?>
-    </div>
-</div>
-<div class="related row">
-    <div class="column large-12">
-    <h4 class="subheader"><?= __('Related Tags') ?></h4>
-    <?php if (!empty($task->tags)): ?>
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th><?= __('Id') ?></th>
-            <th><?= __('Name') ?></th>
-            <th><?= __('Task Count') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
-        </tr>
-        <?php foreach ($task->tags as $tags): ?>
-        <tr>
-            <td><?= h($tags->id) ?></td>
-            <td><?= h($tags->name) ?></td>
-            <td><?= h($tags->task_count) ?></td>
-
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['controller' => 'Tags', 'action' => 'view', $tags->id]) ?>
-
-                <?= $this->Html->link(__('Edit'), ['controller' => 'Tags', 'action' => 'edit', $tags->id]) ?>
-
-                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Tags', 'action' => 'delete', $tags->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tags->id)]) ?>
-
-            </td>
-        </tr>
-
-        <?php endforeach; ?>
-    </table>
-    <?php endif; ?>
-    </div>
-</div>
+                    }
+                    ?>
+                </div><!--/.panel-body -->
+            </div><!--/.panel -->
+        </div><!--/.col-sm-12 -->
+    </div><!--/.row -->
+</div><!--/.task -->
