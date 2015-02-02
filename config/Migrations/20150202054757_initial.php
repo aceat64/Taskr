@@ -189,11 +189,15 @@ class Initial extends AbstractMigration {
         'null' => '', 
         'default' => '', 
       ])
-      ->addColumn('status', 'integer', [
-        'limit' => '2', 
-        'unsigned' => '1', 
+      ->addColumn('modified', 'datetime', [
+        'limit' => '', 
         'null' => '', 
-        'default' => '0', 
+        'default' => '', 
+      ])
+      ->addColumn('status', 'text', [
+        'limit' => '', 
+        'null' => '', 
+        'default' => 'open', 
       ])
       ->addColumn('user_id', 'integer', [
         'limit' => '10', 
@@ -211,6 +215,12 @@ class Initial extends AbstractMigration {
         'null' => '', 
         'default' => '', 
       ])
+      ->addColumn('total_points', 'integer', [
+        'limit' => '10', 
+        'unsigned' => '1', 
+        'null' => '', 
+        'default' => '', 
+      ])
       ->addColumn('base_points', 'integer', [
         'limit' => '10', 
         'unsigned' => '1', 
@@ -223,13 +233,19 @@ class Initial extends AbstractMigration {
         'null' => '', 
         'default' => '0', 
       ])
-      ->addColumn('votes_count', 'integer', [
+      ->addColumn('vote_count', 'integer', [
         'limit' => '10', 
         'unsigned' => '1', 
         'null' => '', 
         'default' => '', 
       ])
-      ->addColumn('completions_count', 'integer', [
+      ->addColumn('completion_count', 'integer', [
+        'limit' => '10', 
+        'unsigned' => '1', 
+        'null' => '', 
+        'default' => '', 
+      ])
+      ->addColumn('comment_count', 'integer', [
         'limit' => '10', 
         'unsigned' => '1', 
         'null' => '', 
@@ -314,7 +330,7 @@ class Initial extends AbstractMigration {
         'null' => '', 
         'default' => '0', 
       ])
-      ->addColumn('votes_count', 'integer', [
+      ->addColumn('vote_count', 'integer', [
         'limit' => '11', 
         'unsigned' => '', 
         'null' => '', 
